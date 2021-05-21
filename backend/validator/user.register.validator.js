@@ -49,7 +49,7 @@ module.exports = function validateRegisterInput(data) {
 		errors.phone = "Please provide the 10 digit Phone number";
 	}
 
-	// Role checks
+/* 	// Role checks
 	if (Validator.isEmpty(data.phone)) {
 		errors.phone = "Role should not be empty";
 	}
@@ -58,7 +58,7 @@ module.exports = function validateRegisterInput(data) {
 		if (!Validator.equals(data.role, "user")) {
 			errors.role = "Role should be either user or admin";
 		}
-	}
+	} */
 
 	return {
 		errors,
