@@ -1,6 +1,6 @@
 const User = require("../models/user.model");
 const bcrypt = require("bcrypt");
-const generateToken = require("../validator/util.jwt");
+const { generateToken } = require("../validator/util.jwt");
 const validateRegisterInput = require("../validator/user.register.validator");
 
 // @route get /user
@@ -34,6 +34,7 @@ exports.register = async (req, res, next) => {
 			const user = new User({ email: req.body.email, name: req.body.name, phone: req.body.phone, role: req.body.role, password: bcrypt.hashSync(req.body.password, 8) });
 
 			const createdUser = await user.save();
+			console.log(createdUser);
 			res.send({
 				name: createdUser.name,
 				email: createdUser.email,
@@ -51,54 +52,21 @@ exports.register = async (req, res, next) => {
 	}
 };
 
-/* exports.putOne = async (req, res, next) => {
+// @route Delete /user/:id
+// @desc Delete user
+// @access Private
+exports.deleteOne = async (req, res, next) => {
 	try {
-		if (!mongoose.Types.ObjectId.isValid(req.params.userId)) throw new APIError(`Invalid userId`, httpStatus.BAD_REQUEST);
-		const userId = req.params.userId;
-		const response = { payLoad: {}, message: "" };
-		const userAccount = await User.findById(userId).exec();
-		if (!userAccount) throw new APIError(`No user associated with id: ${userId}`, httpStatus.NOT_FOUND);
-		const role = userAccount.role;
-		const user = role === "applicant" ? Applicant : Recruiter;
-		let userDetails = await user.findOne({ id: userId }).exec();
-		for (const key in req.body) {
-			if (user.schema.obj.hasOwnProperty(key) && key !== "id" && key !== "_id") {
-				userDetails[key] = req.body[key];
-			}
-		}
-		const updatedUserDetails = await userDetails.save();
-		if (updatedUserDetails) {
-			response.message = "SUCCESS";
-			response.payLoad = updatedUserDetails;
-			res.status(httpStatus.OK);
-			res.send(response);
+		const userId = req.params.id;
+		//Find and Delete the user
+		const deleteUser = await User.findByIdAndDelete(userId).exec();
+		if (deleteUser) {
+			await deleteUser.remove();
+			res.send({ message: "User Deleted" });
 		} else {
-			throw new APIError(`User with id: ${userId} not updated`, httpStatus.NOT_FOUND);
+			res.send("Error in Deletion.");
 		}
 	} catch (error) {
 		next(error);
 	}
 };
-
-exports.deleteOne = async (req, res, next) => {
-	try {
-		if (!mongoose.Types.ObjectId.isValid(req.params.userId)) throw new APIError(`Invalid userId`, httpStatus.BAD_REQUEST);
-		const userId = req.params.userId;
-		const response = { payLoad: {}, message: "" };
-		const userAccount = await User.findById(userId).exec();
-		if (!userAccount) throw new APIError(`No user associated with id: ${userId}`, httpStatus.NOT_FOUND);
-		const role = userAccount.role;
-		const user = role === "applicant" ? Applicant : Recruiter;
-		const deleteAccount = await User.findByIdAndDelete(userId).exec();
-		const deleteResult = await user.findOneAndDelete({ id: userId }).exec();
-		if (deleteAccount && deleteResult) {
-			response.message = "SUCCESS";
-			res.status(httpStatus.OK);
-			res.send(response);
-		} else {
-			throw new APIError(`User with id: ${userId} not deleted`, httpStatus.NOT_FOUND);
-		}
-	} catch (error) {
-		next(error);
-	}
-}; */
