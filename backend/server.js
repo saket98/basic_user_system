@@ -2,11 +2,13 @@ const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const userRoute = require("./routes/user.routes");
+const logger = require("morgan");
 
 require("dotenv").config();
 
 const app = express();
 app.use(cors());
+app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -26,7 +28,7 @@ mongoose
 	})
 	.catch((err) => console.log(err.message));
 
-app.use("/", userRoute);
+app.use("/user", userRoute);
 
 app.use((err, req, res, next) => {
 	res.status(500).send({ message: err.message });
