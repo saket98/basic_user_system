@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { register } from "../Action/userAction";
+import image from "../logo1.png";
 
-function RegisterScreen(props) {
+function Login(props) {
 	const [name, setName] = useState("");
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [rePassword, setRePassword] = useState("");
+	const [password2, setPassword2] = useState("");
 	const [role, setRole] = useState("");
 	const [phone, setPhone] = useState("");
 	const dispatch = useDispatch();
@@ -14,84 +15,107 @@ function RegisterScreen(props) {
 	const submitHandler = (e) => {
 		console.log("inside handler");
 		e.preventDefault();
-		dispatch(register(name, email, password, rePassword, role, phone));
+		dispatch(register(name, email, password, password2, phone, role));
 	};
 
 	return (
-		<div className="form">
-			<form onSubmit={submitHandler}>
-				<ul className="form-container">
-					<li className="active">
-						<a style={{ paddingTop: "4px", paddingBottom: "4px" }} href="#new" role="tab" data-toggle="tab" className="big">
-							New User
-						</a>
-					</li>
-					<li>
-						<a style={{ paddingTop: "4px", paddingBottom: "4px" }} href="#user" role="tab" data-toggle="tab" className="big">
-							I have account
-						</a>
-					</li>
+		<div className="container">
+			<div className="row">
+				<div className="col-md-4 col-md-offset-4" style={{ boxShadow: "1px 1px 4px 3px #C2B8B8", background: "#fff", marginTop: "5%" }}>
+					<div className="col-md-12 text-center" style={{ borderBottom: "1px dashed #000", paddingBottom: "10px", marginBottom: "10px" }}>
+						<img class=" text-center" alt="Logo" src={image} />
+					</div>
 
-					<li>
-						<div className="form-group">
-							<div className="right-inner-addon">
-								<i className="glyphicon glyphicon-envelope" />
-								<input className="form-control input-lg" placeholder="Name" type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} />
+					<ul className="nav nav-tabs" role="tablist">
+						<li className="active">
+							<a style={{ paddingTop: "4px", paddingBottom: "4px" }} href="#new" role="tab" data-toggle="tab" className="big">
+								New User
+							</a>
+						</li>
+						<li>
+							<a style={{ paddingTop: "4px", paddingBottom: "4px" }} href="#user" role="tab" data-toggle="tab" className="big">
+								I have account
+							</a>
+						</li>
+					</ul>
+					<div className="tab-content">
+						<form onSubmit={submitHandler}>
+							<div className="tab-pane fade in active" id="new">
+								<br />
+								<fieldset>
+									<div className="form-group">
+										<div className="right-inner-addon">
+											<i className="glyphicon glyphicon-envelope" />
+											<input className="form-control input-lg" placeholder="Name" type="text" name="name" id="name" onChange={(e) => setName(e.target.value)} />
+										</div>
+									</div>
+									<div className="form-group">
+										<div className="right-inner-addon">
+											<i className="glyphicon glyphicon-lock" />
+											<input className="form-control input-lg" placeholder="Enter Email ID" type="text" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
+										</div>
+									</div>
+									<div className="form-group">
+										<div className="right-inner-addon">
+											<i className="glyphicon glyphicon-lock" />
+											<input className="form-control input-lg" placeholder="Password" type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} />
+										</div>
+									</div>
+									<div className="form-group">
+										<div className="right-inner-addon">
+											<i className="glyphicon glyphicon-envelope" />
+											<input className="form-control input-lg" placeholder="Confirm Password" type="password" id="rePassword" name="rePassword" onChange={(e) => setPassword2(e.target.value)} />
+										</div>
+									</div>
+									<div className="form-group">
+										<div className="right-inner-addon">
+											<i className="glyphicon glyphicon-phone" />
+											<input className="form-control input-lg" placeholder="Enter Phone Number " name="phone" id="phone" onChange={(e) => setPhone(e.target.value)} type="text" />
+										</div>
+									</div>
+									<div className="form-group">
+										<select className="form-control" style={{ padding: "0 15px", fontSize: "18px", color: "#999" }} id="exampleFormControlSelect1" placeholder="Select the Role" name="phone" onChange={(e) => setRole(e.target.value)}>
+											<option>Select the Role</option>
+											<option>Admin</option>
+											<option>User</option>
+										</select>
+									</div>
+									<div className=" text-center">
+										<button type="submit" className="btn btn-success btn-block">
+											Sign Up
+										</button>
+									</div>
+								</fieldset>
+							</div>
+						</form>
+						<div className="tab-pane fade" id="user">
+							<br />
+							<fieldset>
+								<div className="form-group">
+									<div className="right-inner-addon">
+										<i className="glyphicon glyphicon-envelope" />
+										<input className="form-control input-lg" placeholder="Email Address" type="text" />
+									</div>
+								</div>
+								<div className="form-group">
+									<div className="right-inner-addon">
+										<i className="glyphicon glyphicon-lock" />
+										<input className="form-control input-lg" placeholder="Password" type="password" />
+									</div>
+								</div>
+							</fieldset>
+							<div className=" text-center">
+								<a href="user-management.html" className="btn btn-success btn-block">
+									LOGIN
+								</a>
 							</div>
 						</div>
-					</li>
-					<li>
-						<div className="form-group">
-							<div className="right-inner-addon">
-								<i className="glyphicon glyphicon-envelope" />
-								<input className="form-control input-lg" placeholder="Enter Email ID" type="text" name="email" id="email" onChange={(e) => setEmail(e.target.value)} />
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className="form-group">
-							<div className="right-inner-addon">
-								<i className="glyphicon glyphicon-lock" />
-								<input className="form-control input-lg" placeholder="Password" type="password" id="password" name="password" onChange={(e) => setPassword(e.target.value)} />
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className="form-group">
-							<div className="right-inner-addon">
-								<i className="glyphicon glyphicon-lock" />
-								<input className="form-control input-lg" placeholder="Confirm Password" type="password" id="rePassword" name="rePassword" onChange={(e) => setRePassword(e.target.value)} />
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className="form-group">
-							<div className="right-inner-addon">
-								<i className="glyphicon glyphicon-phone" />
-								<input className="form-control input-lg" placeholder="Enter Phone Number " name="phone" id="phone" onChange={(e) => setPhone(e.target.value)} type="text" />
-							</div>
-						</div>
-					</li>
-					<li>
-						<div className="form-group">
-							<select className="form-control" style={{ padding: "0 15px", fontSize: "18px", color: "#999" }} id="exampleFormControlSelect1" placeholder="Select the Role" name="phone" onChange={(e) => setRole(e.target.value)}>
-								<option>Select the Role</option>
-								<option>Admin</option>
-								<option>User</option>
-							</select>
-						</div>
-					</li>
-					<li>
-						<button type="submit" className="button primary">
-							Register
-						</button>
-					</li>
-					<li>
-						<div class="g-signin2" data-onsuccess="onSignIn"></div>
-					</li>
-				</ul>
-			</form>
+						<br />
+					</div>
+				</div>
+			</div>
 		</div>
 	);
 }
-export default RegisterScreen;
+
+export default Login;

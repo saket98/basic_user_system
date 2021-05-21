@@ -46,19 +46,19 @@ module.exports = function validateRegisterInput(data) {
 	}
 
 	if (!Validator.isLength(data.phone, { min: 10, max: 10 })) {
-		errors.phone = "Please provide the 10 digit Phone number";
+		errors.phone = `Please provide the 10 digit Phone number ${data.phone.length}`;
 	}
 
-/* 	// Role checks
+	// Role checks
 	if (Validator.isEmpty(data.phone)) {
 		errors.phone = "Role should not be empty";
 	}
 
-	if (!Validator.equals(data.role, "admin")) {
-		if (!Validator.equals(data.role, "user")) {
+	if (!Validator.equals(data.role, "Admin")) {
+		if (!Validator.equals(data.role, "User")) {
 			errors.role = "Role should be either user or admin";
 		}
-	} */
+	}
 
 	return {
 		errors,
