@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import { useDispatch, connect } from "react-redux";
 import image from "../logo1.png";
@@ -13,10 +13,11 @@ function UserManagment(props) {
 		return () => {
 			//
 		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	}, [dispatch]);
 
-	useEffect(() => {}, [props.state]);
+	useEffect(() => {
+		console.log(users)
+	}, [props.state]);
 
 	const deleteHandler = (user) => {
 		dispatch(deleteUser(user._id));
