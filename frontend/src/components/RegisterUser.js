@@ -1,6 +1,7 @@
-import React, { useState } from "react";
-import { useDispatch } from "react-redux";
-import { register } from "../Action/userAction";
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
+import { register, signin } from "../Action/userAction";
 import image from "../logo1.png";
 
 function Login(props) {
@@ -12,10 +13,26 @@ function Login(props) {
 	const [phone, setPhone] = useState("");
 	const dispatch = useDispatch();
 
-	const submitHandler = (e) => {
-		console.log("inside handler");
+	const userSignin = useSelector((state) => state.userSignin);
+	const { userInfo } = userSignin;
+
+	/* console.log(props)
+
+	useEffect(() => {
+		if (userInfo) {
+			props.history.push("/check");
+		}
+	}, [props.history, userInfo]); */
+
+	const submitHandlerRegister = (e) => {
 		e.preventDefault();
 		dispatch(register(name, email, password, password2, phone, role));
+	};
+
+	const submitHandlerLogin = async (e) => {
+		e.preventDefault();
+		let a = dispatch(signin(email, password));
+		console.log(a);
 	};
 
 	return (
@@ -39,7 +56,7 @@ function Login(props) {
 						</li>
 					</ul>
 					<div className="tab-content">
-						<form onSubmit={submitHandler}>
+						<form onSubmit={submitHandlerRegister}>
 							<div className="tab-pane fade in active" id="new">
 								<br />
 								<fieldset>
@@ -82,34 +99,36 @@ function Login(props) {
 									</div>
 									<div className=" text-center">
 										<button type="submit" className="btn btn-success btn-block">
-											Sign Up
+											SIGN UP
 										</button>
 									</div>
 								</fieldset>
 							</div>
 						</form>
-						<div className="tab-pane fade" id="user">
-							<br />
-							<fieldset>
-								<div className="form-group">
-									<div className="right-inner-addon">
-										<i className="glyphicon glyphicon-envelope" />
-										<input className="form-control input-lg" placeholder="Email Address" type="text" />
+						<form onSubmit={submitHandlerLogin}>
+							<div className="tab-pane fade" id="user">
+								<br />
+								<fieldset>
+									<div className="form-group">
+										<div className="right-inner-addon">
+											<i className="glyphicon glyphicon-envelope" />
+											<input className="form-control input-lg" placeholder="Enter Email ID" type="text" name="email" id="loginemail" onChange={(e) => setEmail(e.target.value)} />
+										</div>
 									</div>
-								</div>
-								<div className="form-group">
-									<div className="right-inner-addon">
-										<i className="glyphicon glyphicon-lock" />
-										<input className="form-control input-lg" placeholder="Password" type="password" />
+									<div className="form-group">
+										<div className="right-inner-addon">
+											<i className="glyphicon glyphicon-lock" />
+											<input className="form-control input-lg" placeholder="Password" type="password" id="loginpassword" name="password" onChange={(e) => setPassword(e.target.value)} />
+										</div>
 									</div>
+								</fieldset>
+								<div className=" text-center">
+									<button type="submit" className="btn btn-success btn-block">
+										<Link to="/dashbord">LOGIN</Link>
+									</button>
 								</div>
-							</fieldset>
-							<div className=" text-center">
-								<a href="user-management.html" className="btn btn-success btn-block">
-									LOGIN
-								</a>
 							</div>
-						</div>
+						</form>
 						<br />
 					</div>
 				</div>
