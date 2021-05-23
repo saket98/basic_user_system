@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter } from "react-router-dom";
-import { useDispatch, connect } from "react-redux";
+import { useDispatch, connect, useSelector } from "react-redux";
 import image from "../logo1.png";
 import { userList, deleteUser } from "../Action/userAction";
 
 function UserManagment(props) {
+	const userDelete = useSelector((state) => state.userDelete);
+	console.log(userDelete)
+	const { success: successDelete } = userDelete;
+
 	const dispatch = useDispatch();
 	const users = props?.userData?.userData?.data?.user;
 
@@ -13,11 +17,7 @@ function UserManagment(props) {
 		return () => {
 			//
 		};
-	}, [dispatch]);
-
-	useEffect(() => {
-		console.log(users)
-	}, [props.state]);
+	}, [dispatch, successDelete]);
 
 	const deleteHandler = (user) => {
 		dispatch(deleteUser(user._id));

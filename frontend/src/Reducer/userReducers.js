@@ -18,8 +18,10 @@ function userSigninReducer(state = {}, action) {
 function userDeleteReducer(state = {}, action) {
 	switch (action.type) {
 		case USER_DELETE_REQUEST:
+			console.log(state)
 			return { loading: true };
 		case USER_DELETE_SUCCESS:
+			console.log(action.payload)
 			return { loading: false, userInfo: action.payload };
 		case USER_DELETE_FAIL:
 			return { loading: false, error: action.payload };
@@ -54,4 +56,4 @@ function userListReducer(state = { userData: [] }, action) {
 	}
 }
 
-export { userSigninReducer, userRegisterReducer, userDeleteReducer as userUpdateReducer, userListReducer };
+export { userSigninReducer, userRegisterReducer, userDeleteReducer, userListReducer };

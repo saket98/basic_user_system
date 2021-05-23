@@ -15,7 +15,6 @@ const userList = () => async (dispatch) => {
 const deleteUser = (userId) => async (dispatch) => {
 	dispatch({ type: USER_DELETE_REQUEST, payload: userId });
 	try {
-		console.log(userId)
 		const { data } = await Axios.delete("/user/" + userId);
 		dispatch({ type: USER_DELETE_SUCCESS, payload: data });
 		} catch (error) {

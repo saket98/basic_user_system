@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { register, signin } from "../Action/userAction";
 import image from "../logo1.png";
@@ -12,9 +12,6 @@ function Login(props) {
 	const [role, setRole] = useState("");
 	const [phone, setPhone] = useState("");
 	const dispatch = useDispatch();
-
-	const userSignin = useSelector((state) => state.userSignin);
-	const { userInfo } = userSignin;
 
 	/* console.log(props)
 
