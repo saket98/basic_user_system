@@ -6,6 +6,7 @@ import UserManagment from "./components/UserManagment";
 function App() {
 	return (
 		<div className="App">
+			<RegisterUser></RegisterUser>
 			<UserManagment></UserManagment>
 			<main>
 				<Route path="/register" component={RegisterUser}></Route>
